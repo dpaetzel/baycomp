@@ -411,10 +411,14 @@ class HierarchicalTest(Test):
             std_within = np.mean(np.std(diff, axis=1))  # may be different from std_diff!
             std_among = np.std(np.mean(diff, axis=1)) if ndatasets > 1 else std_within
             maxdiff = np.max(np.abs(diff))
+            if nfolds == 1:
+                rho = 0
+            else:
+                rho = 1 / nfolds
 
             return dict(
                 x=diff, Nsamples=nscores, q=ndatasets,
-                rho=1 / nfolds,
+                rho=rho,
                 deltaLow=-maxdiff, deltaHi=maxdiff,
                 lowerAlpha=lower_alpha, upperAlpha=upper_alpha,
                 lowerBeta=lower_beta, upperBeta=upper_beta,
