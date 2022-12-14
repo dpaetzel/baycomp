@@ -10,7 +10,9 @@
     let system = "x86_64-linux";
     in with import nixpkgs { inherit system; };
 
-    let python = python39;
+    # TODO Instead of hardcoding the Python version here, it should be provided
+    # to defaultPackage sensibly (e.g. by allowing some sort of override)?
+    let python = python310;
     in rec {
 
       defaultPackage."${system}" = packages."${system}".baycomp;
